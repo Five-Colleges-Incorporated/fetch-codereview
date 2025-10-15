@@ -2,10 +2,11 @@
 
 #### The good
 
-Consistent layout and calls to get data from database.
-Multiple backend services composed together into a single store.
+Consistent file layout and calls to get data from database.
+Multiple backend services composed together into a single logical store.
+(fat model in js at least)
 
-SQLAlchemy back_populates vs backref
+SQLAlchemy back_populates vs backref is more readable
 
 #### The ok but notable
 
@@ -27,6 +28,8 @@ duplicating data with originalXYZ to support "cancel edits" functionality
 datetime fields not using server_default and instead doing their own thing
 https://docs.sqlalchemy.org/en/20/core/compiler.html#utc-timestamp-function
 
+pageInitLoading = false isn't set in a finally block
+
 #### Areas of improvement
 
 Very inconsistent naming between frontend and backend.
@@ -34,7 +37,7 @@ jobId param -> /accession-jobs/workflow/{id} route
 Docs in py call it the "accession job workflow" but it returns accession details.
 The AccessionJob.workflow_id is the filter
 
-Mispelled environment variable.
+Mispelled environment variable VITE_INV_SERVCE_API.
 
 Why is the list of Accession Jobs not loaded in the same way?
 
