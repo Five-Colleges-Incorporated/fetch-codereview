@@ -1,5 +1,6 @@
 #### The good
 
+
 #### The ok but notable
 
 Container type is a database object, are there really more than 2?
@@ -32,18 +33,13 @@ We get the audit_info from the session.
 Then after committing we add the audit_info back to the session.
 This is all caused by the behavior around manual commits?
 
-POSTing the AccessionJob returns the accession job.
-Then it is fetched again when navigating to the job page.
 
 #### Red Flags
 
 Decoding the jwt apparently uses a hardcoded secret key 'your-secret-key'!
 This key is checked into source control!
 This means anyone can change their permissions and sign a key to be accepted by the server.
-
-The AccessionTrayInfo and AccessionNonTrayInfo components are 85% the same.
-There's about 500 lines of duplicated code.
-There's already subtle formatting and logic differences between them which will grow over time.
+This is in a file called middlware which is a mispelling of middleware.
 
 ### Diagram
 
