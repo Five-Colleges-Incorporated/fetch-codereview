@@ -19,19 +19,19 @@ Dependency | Version | Appropriateness | Support |
 --- | --- | --- | --- |
 python | 3.11.4 | :heavy_check_mark: | :heavy_check_mark:\* |
 uvicorn[standard] | ^0.23.2 | :heavy_check_mark: | :heavy_check_mark: |
-pytest | ^7.4.1 | :heavy_multiplication_x: | :heavy_check_mark: |
+pytest | ^7.4.1 | :heavy_multiplication_x: | :heavy_check_mark:\* |
 httpx | ^0.24.1 | :heavy_multiplication_x: | |
 alembic | ^1.12.0 |:heavy_check_mark: | :heavy_check_mark: | 
 psycopg2-binary | ^2.9.9 | :heavy_multiplication_x: | |
 pydantic-settings | ^2.0.3 | :heavy_check_mark: | :heavy_check_mark: |
 pytz | ^2023.3.post1 | :heavy_multiplication_x: | |
-sqlalchemy-utils | ^0.41.1 | :heavy_check_mark: | :heavy_check_mark: |
+sqlalchemy-utils | ^0.41.1 | :heavy_check_mark: | :heavy_check_mark:\* |
 pytest-html | ^4.1.1 | :heavy_multiplication_x: | |
 python-dotenv | ^1.0.1 | :heavy_multiplication_x: | |
 sqlalchemyseed | ^2.0.0 | :heavy_check_mark: | :heavy_multiplication_x: |
 python3-saml | 1.16.0 | :heavy_check_mark: | :heavy_check_mark: | 
 pyjwt | ^2.8.0 | :heavy_check_mark: | :heavy_check_mark: |
-python-multipart | ^0.0.9 | :heavy_check_mark: | :heavy_check_mark: |
+python-multipart | ^0.0.9 | :heavy_check_mark: | :heavy_check_mark:\* |
 pandas | ^2.2.2 | :heavy_multiplication_x: | :heavy_check_mark: |
 openpyxl | ^3.1.5 | :heavy_check_mark: | :heavy_check_mark: |
 sqltap | ^0.3.11 | :heavy_check_mark: | :heavy_multiplication_x: |
@@ -64,6 +64,10 @@ A version specifier of >2.0 should be explicitly added to make sure compatibilit
 
 Pandas should not be used syncronously in a web application.
 Alternatives for the bulk_import process should be investigated.
+
+Dependency versions have been specified using the caret (^) operator.
+This [pins the leftmost version number](https://python-poetry.org/docs/dependency-specification/#caret-requirements) which prevents breaking changes from being installed while still taking security fixes.
+For the most part, this is the desired behavior but dependencies _do need_ to be explicitly upgraded at regular intervals to stay up to date.
 
 #### Areas of improvement
 
