@@ -40,7 +40,7 @@ The relevant code is in src/composables/useBarcodeScanHandler.js
 Setting the barcode input delay to a very small number allows for the rapid entry of barcodes using a keyboard.
 On FETCH Local I was able to get to 5-6 per second. FETCH "fell behind" visually but did catch up when I stopped entering barcodes.
 
-## Hypotheses and Possible fixes
+## Hypotheses and Possible Fixes
 
 Scanning "too fast" may cause undue load on the server/database which could result in 500 errors.
 This is unlikely as the behavior would also manifest when multiple people are scanning at a relaxed pace.
