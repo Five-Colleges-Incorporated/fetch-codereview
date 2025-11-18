@@ -14,3 +14,7 @@ It defaults to version 1 and so the 'global-data' will in theory be created only
 
 After messing with Refile jobs offline the indexDb doesn't seem to have anything to do with the offline syncing.
 It all comes down to workbox-background-sync.
+
+I thought I made a breakthrough!
+In MainLayout, every 8 hours the background worker is refreshed and the indexedDB databases are cleared.
+This explicitly skips clearing out the request queue which I missed...
