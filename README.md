@@ -7,6 +7,7 @@ You can view all the sections and files in the :arrow_left:file tree.
 
 * [Workflows](./workflows)
     * [Routing](./workflows/routing.md)
+    * [Shelving](./workflows/shelving.md)
     * [Accession](./workflows/accession)
     * [Refile](./workflows/refile)
 * [Bug Investigations](./bugs)

@@ -3,6 +3,7 @@
 ## Table of Contents
 
 * [Routing](./routing.md)
+* [Shelving](./shelving.md)
 * Accession
   * [Page Load](./accession/01_pageload.md)
   * [Dashboard](./accession/02_dashboard.md)
