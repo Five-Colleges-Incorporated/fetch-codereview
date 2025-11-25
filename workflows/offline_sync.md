@@ -34,13 +34,24 @@ Turning back on internet after navigation completed the wrong job.
 
 The register-service-worker package is an implicit dependency despite being used directly.
 
+### Queueable Calls
+
+* Pause/Resume shelving job
+* Reassign (proposed) container location during shelving job
+* Pause/Resume picklist job
+* Return picklist item to queue
+* Scanning a Item during picklist job
+* Pause/Resume refile job
+* Return refile item to queue
+* Scanning a Item during refile job
+
 ### Diagram
 ```mermaid
 sequenceDiagram
 participant is as Inventory Service
 box browser
-    participant idb as IndexedDb
     participant cache as Cache
+    participant idb as IndexedDb
     participant offlineQueue@{ "type" : "queue" }
 end
 box ServiceWorker
@@ -53,7 +64,7 @@ box Application
     participant gs as /stores/global-store.js
     participant ax as /boot/axios.js
     participant *.js@{ "type": "collections" }
-    participant rswlib as register-service-worker
+    participant rswlib as register-service-worker<br/>package
     participant rsw as register-service-worker.js
 end
 
@@ -68,31 +79,39 @@ end
 rect rgba(250, 200, 50, .1)
     rswlib->>+rsw: 'updated'
     rsw->>idb: Delete workbox-background-sync db
+    rect rgba(0, 150, 150, .2)
     par
         rsw--)csw: 'forceRefreshServiceWorker'
         note over csw: Activate new worker
     and
         note over rsw: Refresh Page 
     end
+    end
 end
 
 rect rgba(250, 200, 50, .1)
+    note over *.js: User takes an action on a Job
     activate *.js
     *.js-->>csw: 'queueIncomingApiCall' {toQueue}
     *.js->>+ax: $api.{method} {route}
     ax-->>+csw:
+    rect rgba(0, 150, 150, .2)
     alt offline and {toQueue} == {route}
         csw->>offlineQueue: queue {method} {route}
+        offlineQueue->>idb: Store in<br/>workbox-background-sync db
         csw-->>nav: 'refreshWhenOnline'
-    else
+    else online or {toQueue} != {route}
+        rect rgba(150, 0, 150, .1)
         alt {method} == GET
             csw->>+wbs: NetworkFirst {route}
-            wbs<<->>is: Try {method} {route}
-            wbs<<->>cache: Cache {method} {route}
+            wbs<<->>is: Try GET {route}
+            wbs<<->>cache: Store/Retrieve {route}
             wbs->>-csw:
-        else
+        else {method} != GET
             csw<<->>is: {method} {route}
         end
+        end
+    end
     end
     csw->-ax: Response
     ax->>-*.js:
@@ -100,15 +119,20 @@ rect rgba(250, 200, 50, .1)
 end
 
 rect rgba(250, 200, 50, .1)
+    note over nav: User Clicks "Send Requests"
     nav-->>+csw: 'triggerBackgroundSync'
     csw<<->>offlineQueue: requests
+    rect rgba(0, 150, 150, .2)
     loop for req in requests
-        csw<<->>is: {method} {path}
+        csw<<->>is: {method} {route}
+        rect rgba(150, 0, 150, .1)
         alt 500 Internal Server Error:
-            csw->>offlineQueue: queue {method} {path}
+            csw->>offlineQueue: queue {method} {route} for retry
         else ok
-            note over csw: Send {path} to "Test" page
+            note over csw: Send {route} to "Test" page
         end
+        end
+    end
     end
     csw-->>-nav: 'sync complete'
 end
