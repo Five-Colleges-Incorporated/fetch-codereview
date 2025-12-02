@@ -14,8 +14,8 @@ RUN ls && quasar build -m pwa
 FROM registry.hub.docker.com/library/caddy:alpine
 RUN <<CADDYFILE
 printf '{$DOMAIN} {
-    root * /var/www
-    file_server
+	root * /var/www
+	file_server
 }' >> /etc/caddy/Caddyfile
 CADDYFILE
 COPY --from=builder /app/dist/pwa /var/www

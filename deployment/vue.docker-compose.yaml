@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  caddy:
+    container_name: caddy
+    restart: unless-stopped
+    image: ${PWA_IMAGE_NAME}:${PWA_IMAGE_VERSION}
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      DOMAIN: ${PWA_DOMAIN}
+      VITE_ENV: ${PWA_ENV}
+      VITE_INV_SERVCE_API: ${INVENTORY_SERVICE_DOMAIN}
+
+volumes:
+  caddy_data:
+  caddy_config:

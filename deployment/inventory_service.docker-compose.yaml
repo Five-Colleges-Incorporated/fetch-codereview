@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  fastapi:
+    container_name: inventory_service
+    restart: unless-stopped
+    image: ${INVENTORY_SERVICE_IMAGE_NAME}:${INVENTORY_SERVICE_IMAGE_VERSION}
+    expose:
+      - 8000
+    environment:
+      APP_ENVIRONMENT: ${INVENTORY_SERVICE_ENV}
+      DATABASE_URL: ${DATABASE_URL}
+      VUE_HOST: ${PWA_DOMAIN}
+      ALLOWED_ORIGINS: ${PWA_DOMAIN}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/status"]
+      interval: 5m
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  caddy:
+    container_name: caddy
+    restart: unless-stopped
+    image: ${INVENTORY_SERVICE_IMAGE_NAME}-caddy:${INVENTORY_SERVICE_IMAGE_VERSION}
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - inventory_service
+    environment:
+      PROXY_BACKEND: inventory_service
+      PROXY_PORT: 8000
+      DOMAIN: ${INVENTORY_SERVICE_DOMAIN}
+
+volumes:
+  caddy_data:
+  caddy_config:
