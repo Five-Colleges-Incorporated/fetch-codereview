@@ -1,8 +1,7 @@
 version: '3'
 
 services:
-  fastapi:
-    container_name: inventory_service
+  inventory_service:
     restart: unless-stopped
     image: ${INVENTORY_SERVICE_IMAGE_NAME}:${INVENTORY_SERVICE_IMAGE_VERSION}
     expose:

@@ -13,8 +13,6 @@ services:
       - caddy_config:/config
     environment:
       DOMAIN: ${PWA_DOMAIN}
-      VITE_ENV: ${PWA_ENV}
-      VITE_INV_SERVCE_API: ${INVENTORY_SERVICE_DOMAIN}
 
 volumes:
   caddy_data:
