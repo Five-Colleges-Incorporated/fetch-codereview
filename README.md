@@ -12,6 +12,8 @@ You can view all the sections and files in the :arrow_left:file tree.
     * [Refile](./workflows/refile)
 * [Bug Investigations](./bugs)
 * [Developer Setup](./developer_setup.md)
+* [Deployment](./deployment)
+* [Design](./design)
 * Dependencies
     * [Python](./dependencies/python.md)
     * [Javascript](./dependencies/nodejs.md)
