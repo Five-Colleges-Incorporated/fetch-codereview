@@ -14,7 +14,9 @@ You can view all the sections and files in the :arrow_left:file tree.
 * [Developer Setup](./developer_setup.md)
 * [Deployment](./deployment)
 * [Design](./design)
-* Dependencies
+    * [Shelf Renumbering](./design/shelf_renumbering.md)
+    * [Shipping/Receiving](./design/shipping_receiving)
+* [Dependencies](./dependencies)
     * [Python](./dependencies/python.md)
     * [Javascript](./dependencies/nodejs.md)
 
