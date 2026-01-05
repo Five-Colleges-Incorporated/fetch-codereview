@@ -1,14 +1,5 @@
 # syntax=docker/dockerfile:1
 
-FROM registry.hub.docker.com/library/caddy:alpine AS caddy
-RUN <<CADDYFILE
-printf '{$DOMAIN} {
-	reverse_proxy {$PROXY_BACKEND}:{$PROXY_PORT} {
-		header_down Strict-Transport-Security max-age=31536000;
-	}
-}' >> /etc/caddy/Caddyfile
-CADDYFILE
-
 FROM registry.hub.docker.com/library/python:3.11.4 AS builder
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 WORKDIR /app

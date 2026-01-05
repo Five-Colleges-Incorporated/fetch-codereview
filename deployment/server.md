@@ -39,34 +39,24 @@ Caddy is a modern alternative to nginx which automates https certificate acquisi
 
 Docker Compose is a simple way to run Docker Containers allowing horizontal scaling on a single host and service restarts upon crashing.
 
-Two separate EC2 instances were setup allowing for scaling the pwa and inventory service separately.
+One large EC2 instance was setup to simplify deployment.
 RDS was used for the database to automate maintenance/backups/security etc and also scale separately.
-This could all be hosted on a single EC2 instance with a reverse proxy setup to direct traffic to the inventory service or pwa as necessary.
+It could be run on the same EC2 instance as the other services.
 
-The PWA was dockerized with the environment hardcoded to simplify ssl handling and deployment.
-It is not recommended to dockerize this application and instead use different static hosting method.
+The PWA was not dockerized so as not to hardcode any build time parameters.
 
-## Setup Steps (for inventory service)
+## Setup Steps
 
 1. Create an EC2 instance
 1. Create an RDS database, allowing connections from EC2
 1. SSH into the EC2 instance and [install docker compose](https://stackoverflow.com/a/72156137)
-1. Create Public ECR registries for inventory service images (this is why we're not building secrets into the image)
-1. Follow ECR steps to build/deploy images. Note the inventory-service-caddy image uses the same Dockerfile with a --target caddy flag.
-1. Create a dns records pointing to the ip address of the EC2 instance
+1. Create a Public ECR registry for the inventory service image (this is why we're not building secrets into the image)
+1. Follow ECR steps to build/publish the inventory_service images
+1. Follow Quasar steps to build the PWA targeting the production inventory service
+1. Create two dns records pointing to the ip address of the EC2 instance
 1. Create a database inside the RDS instance
 1. Create a .env file on the server based on the template with values filled in
-1. Use scp to copy the docker-compose file to the server
+1. Use scp to copy the Caddyfile, docker-compose file, and static PWA files to the server
 1. Run docker-compose up -d
 1. (Optional) Scale to multiple services by running docker-compose up --scale inventory_service=2+
 1. (Optional) Seed the data as in developer setup, note you have to use the python executable from the .venv and run it in the app's parent folder
-
-## Setup Steps (for pwa)
-1. Create an EC2 instance
-1. SSH into the EC2 instance and install docker compose
-1. Create a Public ECR registry for pwa image
-1. Follow ECR steps to build/deploy image
-1. Create a dns records pointing to the ip address of the EC2 instance
-1. Create a .env file on the server based on the template with values filled in
-1. Use scp to copy the docker-compose file to the server
-1. Run docker-compose up -d

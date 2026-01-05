@@ -1,0 +1,19 @@
+{$INVENTORY_SERVICE_DOMAIN}, localhost:{$INVENTORY_SERVICE_PORT} {
+	reverse_proxy {$INVENTORY_SERVICE_BACKEND}:{$INVENTORY_SERVICE_PORT} {
+		header_down Strict-Transport-Security max-age=31536000;
+	}
+}
+
+# Demo Site only!
+# Make sure to remove adminer for actual production use
+{$ADMINER_DOMAIN} {
+	reverse_proxy {$ADMINER_BACKEND}:{$ADMINER_PORT} {
+		header_down Strict-Transport-Security max-age=31536000;
+	}
+}
+
+{$PWA_DOMAIN} {
+	root * /var/www
+	file_server
+	try_files {path} {path}/ /index.html
+}
