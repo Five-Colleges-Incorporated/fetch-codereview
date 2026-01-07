@@ -5,7 +5,7 @@
 ### Inventory Service 
 
 * Environment Agnostic Docker Container
-* CORS (required for hosting api/pwa on separate servers)
+* CORS (required for hosting api/pwa on separate urls)
 * HTTPS (required for CORS)
 * Reverse Proxy (required for https)
 * Load balancer (required for multiple workers)
@@ -52,8 +52,8 @@ The PWA was not dockerized so as not to hardcode any build time parameters.
 1. SSH into the EC2 instance and [install docker compose](https://stackoverflow.com/a/72156137)
 1. Create a Public ECR registry for the inventory service image (this is why we're not building secrets into the image)
 1. Follow ECR steps to build/publish the inventory_service images
-1. Follow Quasar steps to build the PWA targeting the production inventory service
 1. Create two dns records pointing to the ip address of the EC2 instance
+1. Follow Quasar steps to build the PWA targeting the production inventory service
 1. Create a database inside the RDS instance
 1. Create a .env file on the server based on the template with values filled in
 1. Use scp to copy the Caddyfile, docker-compose file, and static PWA files to the server

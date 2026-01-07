@@ -1,0 +1,18 @@
+# ingress-route.yaml
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: inventory-service
+  namespace: fetch
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`api.k8s.fetch.libraries.fivecolleges.edu`)
+      kind: Rule
+      services:
+        - kind: Service
+          name: inventory-service
+          namespace: fetch
+          port: 80
