@@ -3,6 +3,11 @@ IMS Community review of the FETCH codebase
 
 You can view all the sections and files in the :arrow_left:file tree.
 
+## Intro
+
+This Code Review is intended for a technical audience with a desire to improve the FETCH codebase.
+For a non-technical overview please see the [preliminary analysis](_Link to Preliminary Analysis Here_).
+
 ## Table of Contents
 
 * [Workflows](./workflows)
@@ -11,14 +16,17 @@ You can view all the sections and files in the :arrow_left:file tree.
     * [Accession](./workflows/accession)
     * [Refile](./workflows/refile)
 * [Bug Investigations](./bugs)
-* [Developer Setup](./developer_setup.md)
-* [Deployment](./deployment)
+    * [Barcode Lag](./bugs/barcode_lag.md)
+    * [Duplicate Verification](./bugs/duplicate_verification.md)
+    * [Offline Refile](./bugs/offline_refile.md)
+    * [Slow Verification List](./bugs/verification_list.md)
 * [Design](./design)
     * [Shelf Renumbering](./design/shelf_renumbering.md)
     * [Shipping/Receiving](./design/shipping_receiving)
 * [Dependencies](./dependencies)
     * [Python](./dependencies/python.md)
     * [Javascript](./dependencies/nodejs.md)
-
-Each section has a :arrow_upper_left:cross-file table of contents, checkout the github menu to see the same-file:arrow_upper_right: table of contents.
-![headings table of contents](https://docs.github.com/assets/cb-69181/mw-1440/images/help/repository/headings-toc.webp)
+* [Deployment](./deployment)
+    * [Local](./deployment/developer_setup.md)
+    * [Single Server](./deployment/server.md)
+    * [Kubernetes](./deployment/kubernetes.md)
