@@ -13,7 +13,7 @@ I still don't understand what a Workflow is or why Accession has one but Refile 
 
 Sorting of items in a Refile Job is done in python in the web server instead of the database.
 
-Getting the options to filter the Refile queue in this way is clever.
+Getting the options to filter the Refile queue in this way is too clever.
 Instead of having dedicated endpoints it re-uses the existing list endpoints.
 Doing it this way doesn't work when there is more than 50 options and it also fetches way more data than is necessary.
 

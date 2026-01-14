@@ -33,7 +33,7 @@ There are four places in the entire application that touch the indexedDb where r
 
 As far as I understand it I cannot reproduce the request queue completed being dropped, just having the banner not be displayed temporarily.
 My hypothesis is that either
-1. The edge case where the banner happens and the user re-performs the refile job without refreshing the page
+1. The banner is not shown and the user re-performs the refile job without refreshing the page thinking the job was lost
 1. The user does not read the pop-up modal and clicks "Yes, Ignore Requests" (not reading dialogs is very common)
 
 Regardless of how we end up here there are ways to clean it up.
@@ -53,7 +53,7 @@ It does not do a very good job of this, for example if you navigate to a Refile 
 
 It is my opinion that FETCH should either
 1. Use background sync as it was intended to be used and remove manual/visible sync processes
-1. Do not use background sync and instead improve the offline storage implementation to enable "syncing" of stored state when online
+1. Do not use background sync and instead improve the offline storage implementation to enable "syncing" of stored state when online. Possibly using Pinia to manage state
 
 Regardless of whether the service worker's background sync functionality is used the localStorage logic will need to be cleaned up.
 

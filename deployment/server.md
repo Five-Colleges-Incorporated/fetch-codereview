@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-### Inventory Service 
+### Inventory Service
 
 * Environment Agnostic Docker Container
 * CORS (required for hosting api/pwa on separate urls)
@@ -20,18 +20,20 @@
 
 The Dockerfile called "prod" in the Inventory Service has some issues.
 Having separate dockerfiles for separate environments is [generally considered an anti-pattern](https://shipyard.build/blog/dockerfile-for-dev-ci-production/).
-There's a .env file copied into the container, this means the image file is now a secret and specific to production.
+There's a .env file copied into the container, this means the image file now contains secrets and is itself a secret.
 The image file is also sensitive as an attacker could run the image and access the secrets.
 
 In the prod image git/Java/SchemaSpy/dotviz are all installed despite not being used in production.
 This unneccessarily and drastically increases the image size and potential attack surface.
 
-For the PWA, the .env file is also copied into it with the same issues as the Inventory Service.
-There are additional issues with the Production image regarding ssl certs.
+The Production pwa image has the same issues around certs as local development.
+There is no way this is how the production image is built for the Library of Congress.
 Many of the same issues preventing the dev image from being used are present here with cert generated during image build.
 
-A complication encountered with the PWA fetch app is that quasar build compiles in the values of environment variables at build time.
-We want these values at runtime, not compiled into the dockerfile.
+For the PWA, the .env file is also copied into it with the same issues as the Inventory Service.
+There is an additional complication encountered with quasar build compiling in the values of $VITE_INV_SERVCE_API
+This makes sense because it's being compiled into a static site and not running through something like express.
+It does make docker a poor choice for deploying the pwa.
 
 ## Choices made
 
@@ -41,7 +43,7 @@ Docker Compose is a simple way to run Docker Containers allowing horizontal scal
 
 One large EC2 instance was setup to simplify deployment.
 RDS was used for the database to automate maintenance/backups/security etc and also scale separately.
-It could be run on the same EC2 instance as the other services.
+It could be run using docker-compose on the same EC2 instance as the other services.
 
 The PWA was not dockerized so as not to hardcode any build time parameters.
 

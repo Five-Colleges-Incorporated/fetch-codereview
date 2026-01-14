@@ -6,7 +6,7 @@ You can view all the sections and files in the :arrow_left:file tree.
 ## Intro
 
 This Code Review is intended for a technical audience with a desire to improve the FETCH codebase.
-For a non-technical overview please see the [preliminary analysis](_Link to Preliminary Analysis Here_).
+For a non-technical summary and overview please see the [preliminary analysis](_Link to Preliminary Analysis Here_).
 
 ## Table of Contents
 

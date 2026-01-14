@@ -32,15 +32,15 @@ Maybe this is for the weird sorting logic?
 There's nothing on the shelf position tracking what is in it.
 It is instead stored on the item/tray.
 
-This is another area where assumptions are made about the format of data which is potentiall FETCH specific.
+This is another area where assumptions are made about the format of data which is potentially LoC specific.
 In this scenario it is the format of the location field.
+
+The storage heirarchy is a lot to manage and navigate. It's probably necessary but maybe there is a simpler alternative?
+
+#### Areas of improvement
 
 This is another area where transactions are mis-used.
 First the shelving job is created and committed, then validation happens and the job is deleted if there are errors.
-
-The storage heirarchy is a lot. It's probably necessary but maybe there is a simpler alternative?
-
-#### Areas of improvement
 
 Finding shelf positions is done per owner/size combination.
 After each combination the database is committed.

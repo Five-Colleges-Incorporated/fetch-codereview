@@ -23,9 +23,7 @@ This is different than how the options were loaded for the filter.
 #### Areas of improvement
 
 Because this table displays both the refile jobs and refile queue there is a lot of duplication and ternary operators to determine which to display.
-The Essetial Table does a great job at not caring what it is displaying and that should be taken more advantage of.
-
-
+The EssentialTable does a great job at not caring what it is displaying and that should be taken more advantage of.
 
 ### Diagram
 

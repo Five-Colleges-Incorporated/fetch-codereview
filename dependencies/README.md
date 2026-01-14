@@ -18,5 +18,3 @@
 :heavy_check_mark:\* Dependency is supported but pinned version is out of date
 
 :heavy_multiplication_x: No recent release or no community of users/maintainers
-
-

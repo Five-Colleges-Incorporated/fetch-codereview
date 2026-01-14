@@ -11,7 +11,7 @@ A database migration has to create appropriate tables (modeled of existing jobs)
 A new Page for Shipping/Receiving + Vue Route must be created.
 We'll also need Components for the Dashboard and Job Details and a new store.
 A new route in the Inventory Service for Shipping/Receiving jobs.
-The route has to be registered in the frontend in the InventoryService.js
+The route has to be registered in the frontend in the InventoryService.js.
 
 ### Diagram
 

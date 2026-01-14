@@ -19,6 +19,7 @@ The seed data is LoC specific. There is a huge amount of seed data here which ma
 Some slight changes are required to be made to the fetch-vue and fetch-inventory_service repositories to get them running "out of the box".
 
 There's many bash scripts that do "stuff" and they aren't documented.
+These aren't actually necessary to running FETCH locally.
 
 The fetch-database project isn't really required for local development.
 
@@ -32,11 +33,11 @@ Java is a runtime dependency for inventory_service even though it is only used f
 
 #### Areas of improvement
 
-The fetch-fetch-local repository feels fundamentally broken.
+The fetch-local repository feels fundamentally broken. I couldn't get it working at all.
 Maybe it worked at some point or in the original implementers environment.
 
 fetch-vue does not have a configured code formatter (prettier is standard for javascript).
-(this actually is configured in the vscode configuration file)
+The vscode config file has prettier settings but not everyone uses vscode and this isn't mentioned in the documentation.
 
 fetch-vue has failing tests out of the box.
 The test coverage for fetch-vue is incredibly narrow which means development relies on slow manual testing.
@@ -62,7 +63,7 @@ In fact, helper scripts in these repositories use Podman with no mention of inst
 
 ## Running FETCH locally
 
-### fetch-fetch-local
+### fetch-local
 
 > This is the starting point for working with FETCH locally as a developer.
 
@@ -80,7 +81,6 @@ The source code is now stored in GitHub.
 Homebrew is mac specific and not required for installing git.
 See [Getting Started - Installing Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for installing git for your system.
 Alternatively a git GUI, [like github desktop](https://desktop.github.com/download/), may be used.
-
 
 While assuming that a developer has 8gb of memory and 200gb of disk space is reasonably safe in 2025 it _is_ an assumption.
 
@@ -140,7 +140,7 @@ Service workers can also not be registered cannot be registered due to ssl issue
 
 It's about here that I gave up on running FETCH using the fetch-fetch-local repository.
 
-### Non fetch-fetch-local setup
+### Non fetch-local setup
 
 Trying to run FETCH locally with a "push button" process didn't exactly go smoothly.
 I'm not sure if it is even that desired, as it removes the Hot Module Reload capabilities of Quasar/Vue that are part of modern javascript development.
@@ -183,6 +183,11 @@ If desired you can add a volume to persist data.
 
 #### fetch-inventory_service
 
+Every inventory_service image installs java into the container in order to run schema spy.
+Even production where schema spy is not run.
+Running the inventory_service locally without java install kills the api.
+I hacked in a SCHEMA_SPY setting to allow the inventory service to start.
+
 I added a .env file with the docker database credentials in the repository root.
 ```
 SCHEMA_SPY=False
@@ -196,11 +201,6 @@ The app start to come up after installing dependencies and running it.
 poetry install
 uvicorn app.main:app --host localhost --port 8001 --reload
 ```
-
-Every inventory_service image installs java into the container in order to run schema spy.
-Even production where schema spy is not run.
-Running the inventory_service locally without java install kills the api.
-I hacked in a SCHEMA_SPY setting to allow the inventory service to start.
 
 After the server starts and runs the migrations I ran the seed script manually in a python interpreter.
 
@@ -227,10 +227,6 @@ Critically the code running is local and supports hot reload after changes.
 ## Developer Setup
 
 Now that I've at least run FETCH locally I'm going to go through the rest of the setup instructions.
-
-Linting/Formatting/pre-commit
-Editor/IDE configuration?
-Extra tools
 
 ### fetch-database
 
@@ -327,8 +323,7 @@ All python dependencies installed.
 > ./helper.sh build-db - Rebuilds the inventory-database container.
 > ./helper.sh rebuild-db - Wipes the inventory-database volume and re-seeds fake data.
 
-These basically ignore all setup of poetry/python we just did and run against a container with the inventory_service.
-
+These basically ignore all setup of poetry/python we just did and builds a container with the inventory_service.
 
 > Editor Configuration
 

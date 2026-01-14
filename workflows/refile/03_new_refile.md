@@ -7,21 +7,25 @@ This makes some sense as they have different requirements.
 
 The patterns for loading and saving data are the same as other workflows.
 
-There is validation for adding an item to the Refile queue.
+There is backend validation for adding an item to the Refile queue.
 
 #### The ok but notable
 
 There are some modals used for Refile which get their own component file.
 I haven't seen this elsewhere in FETCH but I think I actually prefer it as a pattern.
 
-This pattern happens elsewhere, but when a barcode is scanned the details for it are explicitly gotten.
+When a barcode is scanned the details for it are explicitly gotten.
 Then some checks happen in the frontend. The checks sometimes happen in verify but sometimes outside the store.
-Then the barcode is used.
+This all happens before the barcode can be used.
 
-Done and Cancel do the same thing when adding an item.
+Done and Cancel do the same thing when adding an item. This is maybe a limitation of the modal framework?
 
 Is this the first time that a toast has a link in it?
 Is this accessible?
+
+Adding an item to the refile queue is called "post" in the store but uses the patch verb.
+
+#### Areas of improvement
 
 When creating a refile job, first the request is checked for a list of barcodes.
 It creates the job before checking to see whether the barcodes are for items or not.
@@ -29,12 +33,8 @@ After creation, the passed barcodes are checked to see if they're items.
 If they're not they're considered "errored" and tracked in a list.
 That list is not used for anything and there's no indication what happens with it.
 
-Adding an item to the refile queue is called "post" in the store but uses the patch verb.
-
-#### Areas of improvement
-
 When creating the refile job, because it re-uses the existing table after filtering by building you can mess with the filters and create a cross-building refile job.
-There is no backend validation.
+There is no backend validation preventing this.
 
 ### Diagram
 

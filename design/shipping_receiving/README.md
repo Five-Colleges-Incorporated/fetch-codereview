@@ -14,8 +14,7 @@ There is a database migration framework which allows for required changes to the
 
 #### The ok but notable
 
-One of the existing patterns is the Tray/Non-Tray split.
-This pattern permeates everywhere even down to the database.
+One of the existing patterns is the Tray/Non-Tray split which means a high amount of code duplication all the way down to the database.
 It makes it easy to have a similarly "optional" tote piece for shipping/receiving.
 But it also means that Shipping/Receiving has to know and care about trays.
 

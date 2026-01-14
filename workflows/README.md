@@ -2,8 +2,6 @@
 
 ## Table of Contents
 
-* [Routing](./routing.md)
-* [Shelving](./shelving.md)
 * Accession
   * [Page Load](./accession/01_pageload.md)
   * [Dashboard](./accession/02_dashboard.md)
@@ -14,3 +12,5 @@
   * [Dashboard](./refile/02_dashboard.md)
   * [Create Refile Job](./accession/03_new_refile.md)
   * [Perform Refile Job](./accession/04_perform_refile.md)
+* [Routing](./routing.md)
+* [Shelving](./shelving.md)

@@ -4,19 +4,20 @@
 
 Using a python library for paging results.
 
-Using the quasar table library inside EssentialTable enforcing consistency.
+Using the quasar table library inside an EssentialTable component enforcing consistency.
 Pagination filtering is implemented according to Quasar docs.
 
 #### The ok but notable
 
 Not awaiting async method in onBeforeMount.
-Fine to load data in background but surprising.
+This is fine but surprising.
 
-Inconsistent scoping of similar variable names
-resetAccessionStore (method on store)
-loadAccessionJobs (method in dashboard)
+Imported names are similar but come from different sources. For example:
+* resetAccessionStore (method on store)
+* loadAccessionJobs (method in dashboard)
 
-Hand-rolling filter -> sql conversion in python.
+The filter -> sql conversion is done by hand rather than some sort of libary.
+RSQL or OData are two standards.
 
 Confusing naming with 'update-pagination' being emitted from the @request handler.
 This is the appropriate usage of @request but it isn't immediately clear why the event is 'update-pagination'.
@@ -24,19 +25,17 @@ Same confusion with 'pagination-is-loading' meaning just fetching data.
 
 Using an apparent private? property __thClass of Quasar.
 I don't know if there's a better way to make it accessible like it's doing without it though?
+I would like to see a comment here explaining what is going on.
 
 #### Areas of improvement
 
 :enable-table-reorder defaults to false, is passed as false in a lot of places.
 Is never passed as true. What does it do and why is it here adding complication?
 
-:heading-row-class is subtly different in some places but the same in many others
+:heading-row-class is subtly different in some places but the same in many others.
 Why is this configurable and required to be passed?
 
-:heading-filter-class is the same everywhere (but not passed in)
-
-First taste of css in the project.
-It's kind of random and not documented why it needs to be css and can't be a quasar prop.
+:heading-filter-class is the same everywhere (but not passed in).
 
 ### Diagram
 

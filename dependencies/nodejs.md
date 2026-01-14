@@ -43,8 +43,7 @@ There are a small number of production dependencies.
 #### The ok but notable
 
 @quasar/extras is a package with a lot of useful fonts/icons (and some animations too).
-Only roboto, material-icons, and mdi is being used.
-No harm to keeping it.
+No harm to keeping it but only roboto, material-icons, and mdi is being used.
 
 Dependency versions have been specified using the caret (^) operator.
 This [pins the leftmost version number](https://github.com/npm/node-semver?tab=readme-ov-file#caret-ranges-123-025-004) which prevents breaking changes from being installed while still taking security fixes.

@@ -16,8 +16,6 @@ The pattern of GET, check for 404, POST could be simplified to a PUT operation.
 It's unclear to me why the barcode state is stored in a Pinia store.
 I think this again relates back to not using Pinia properly.
 
-Does ContainerType have to be it's own table?
-
 Detecting duplication is done in python even though it is already enforced in the database.
 
 Background tasks are hardcoded to run on the web server with no easy way to send them to background worker.
@@ -28,7 +26,7 @@ POSTing the AccessionJob returns the accession job.
 Then all jobs are fetched after going back to the list page.
 Then the current job is fetched after being selected in the list.
 Then the current job is fetched again when navigating to the job page.
-I think this because of the Pinia implementation and the dual routing pattern.
+Using Pinia and Vue Router better can eliminate this redundant loading.
 
 The AccessionTrayInfo and AccessionNonTrayInfo components are 85% the same.
 There's about 500 lines of duplicated code.
@@ -36,20 +34,15 @@ There's already subtle formatting and logic differences between them which will 
 Even without AccessionContainerDisplay there are branches for tray/non-tray that are 85% the same.
 This duplication continues into the backend as well with the item and non_tray_item routes being 85% the same.
 
-
 #### Red Flags
 
 The server does not do enough to enforce data integrity
 Some of it has been offloaded to the frontend but the design and implementation of the backend make it difficult.
 This will make it harder to extend FETCH in the future.
 
-For example, using the API I was able to create a Non-Tray Item with a barcode of type Shelf and container type of Tray.
-FETCH got into a really weird state because the item wasn't "scanned for accession" despite being added to an accession job.
-I couldn't scan it for accession or verification afterwards because it wasn't an Item barcode!
-
-Another example is there is nothing server-side preventing an Accession Job from being completed multiple times.
+An example is there is nothing server-side preventing an Accession Job from being completed multiple times.
 Each time it is completed a new Verification Job is created.
-Using the following snippet simulates clicking the complete button rapidly which led to multiple jobs being created.
+Using the following snippet leads to multiple jobs being created.
 ```js
 const complete = Array.from(document.getElementsByTagName('button')).filter(b => b.textContent === 'Complete')[0]
 [complete, complete, complete, complete, complete].forEach(b => b.click());

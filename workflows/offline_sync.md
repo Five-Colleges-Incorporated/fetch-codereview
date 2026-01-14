@@ -22,10 +22,6 @@ But refile and shelving both seem to implement their own indexedDB cache.
 
 There's test code in the service workers that is shipped to production.
 
-I don't think that the updated register-service-worker event ever gets called.
-If it did, there's a fault where it will refresh the page before the worker can become active.
-I think this is actually fine but unnecessarily convoluted.
-
 #### Areas of improvement
 
 Navigating between refile jobs without internet doesn't load up the new job (obviously).

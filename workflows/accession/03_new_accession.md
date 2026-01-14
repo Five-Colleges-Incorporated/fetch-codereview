@@ -3,8 +3,7 @@
 
 #### The ok but notable
 
-Container type is a database object, are there really more than 2?
-Why not an enum?
+Container type as a whole table/object doesn't make sense. It could be an enum.
 
 #### Areas of improvement
 
@@ -32,14 +31,6 @@ Rather than failing if not present it defaults to SYSTEM which might lead to aud
 We get the audit_info from the session.
 Then after committing we add the audit_info back to the session.
 This is all caused by the behavior around manual commits?
-
-
-#### Red Flags
-
-Decoding the jwt apparently uses a hardcoded secret key 'your-secret-key'!
-This key is checked into source control!
-This means anyone can change their permissions and sign a key to be accepted by the server.
-This is in a file called middlware which is a mispelling of middleware.
 
 ### Diagram
 

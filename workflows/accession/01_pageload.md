@@ -2,30 +2,28 @@
 
 #### The good
 
-Consistent file layout and calls to get data from database.
-Multiple backend services composed together into a single logical store.
-(fat model in js at least)
+There is a consistent file layout and calls to get data from database.
+Multiple backend services are composed together into a single logical store.
 
-SQLAlchemy back_populates vs backref is more readable
+SQLAlchemy is using back_populates which is more readable than backref.
 
 #### The ok but notable
 
-ContainerId with no JobId.
+What happens when there's a ContainerId with no JobId.
 
-Idk about how barcodes are handled.
-No way to get back to the root object from the barcode.
-Maybe use polymorphic_identity for the barcode switched on Type?
-Then you can get barcode by id -> barcoded object by navigational property
+Barcodes should probably be using something like `polymorphic_identity` to have different python classes for barcode types.
+This would allow getting back to the barcoded object from the barcode itself.
 
-Http error message is directly toasted to the user with no context.
+Http error messages are directly toasted to the user with no context.
 
 In the store, errors are caught but then immediately rethrown.
 In the store, state isn't reset upon navigating to the page.
-store.resetAccessionStore() vs $reset() vs store.resetAccessionContainer()
+It isn't clear why `store.resetAccessionStore()` and `store.resetAccessionContainer()` are used vs the native `$reset()`.
 
-duplicating data with originalXYZ to support "cancel edits" functionality
+Data is duplicated with the originalXYZ paradigm in order to cancel edits.
+There are libraries or patterns out there that enable this in a more standard way.
 
-datetime fields not using server_default and instead doing their own thing
+datetime fields are not using server_default and instead doing their own thing
 https://docs.sqlalchemy.org/en/20/core/compiler.html#utc-timestamp-function
 
 pageInitLoading = false isn't set in a finally block
@@ -37,16 +35,10 @@ jobId param -> /accession-jobs/workflow/{id} route
 Docs in py call it the "accession job workflow" but it returns accession details.
 The AccessionJob.workflow_id is the filter
 
-Mispelled environment variable VITE_INV_SERVCE_API.
+The environment variable VITE_INV_SERVCE_API is mispelled.
 
-Why is the list of Accession Jobs not loaded in the same way?
-
-Using setup stores to load store properties rather than explicit loads.
-Potentially with an inner store functionality?
-
-### Further investigations
-* What happens if an error is thrown while loading the job?
-* Backend auth/init code
+The stores are Options stores and explictly have calls to load/save state.
+Using Setup stores can automate a lot of the state management.
 
 ### Diagram
 
